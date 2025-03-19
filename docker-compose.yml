@@ -1,0 +1,49 @@
+services:
+  redis:
+    image: redis:6.2-alpine
+    container_name: ad_agency_redis
+    ports:
+      - "6379:6379"
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+  ad_agency:
+    build: .
+    container_name: ad_agency
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+      - sqlite_data:/usr/src/app/db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  celery:
+    build: .
+    command: celery -A ad_agency worker -l info
+    volumes:
+      - ./:/usr/src/app/
+      - sqlite_data:/usr/src/app/db
+    depends_on:
+      - redis
+      - db
+  celery-beat:
+    build: .
+    command: celery -A ad_agency beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ./:/usr/src/app/
+      - sqlite_data:/usr/src/app/db
+    depends_on:
+      - redis
+      - db
+
+volumes:
+  queue:
+    driver: local
+  sqlite_data:
+    driver: local
+  postgres_data:
+    driver: local
