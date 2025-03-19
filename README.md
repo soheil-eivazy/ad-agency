@@ -17,19 +17,19 @@ Ensure you have the following installed:
    ```
 2. Build and start the services using Docker Compose:
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 3. Run database migrations:
    ```bash
-   docker-compose exec ad_agency python manage.py migrate
+   docker compose exec ad_agency python manage.py migrate
    ```
 4. Run seeder for test data:
    ```bash
-   docker-compose exec ad_agency python manage.py seeders
+   docker compose exec ad_agency python manage.py seeders
    ```
 5. Create a superuser (optional, for Django Admin):
    ```bash
-   docker-compose exec ad_agency python manage.py createsuperuser
+   docker compose exec ad_agency python manage.py createsuperuser
    ```
 6. Access the Django admin panel:
    - **URL:** `http://localhost:8000/admin/`
