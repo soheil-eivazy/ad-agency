@@ -25,7 +25,7 @@ Ensure you have the following installed:
    ```
 4. Run seeder for test data:
    ```bash
-   docker-compose exec ad_agency python manage.py seeder
+   docker-compose exec ad_agency python manage.py seeders
    ```
 5. Create a superuser (optional, for Django Admin):
    ```bash
