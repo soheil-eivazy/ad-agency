@@ -12,8 +12,8 @@ Ensure you have the following installed:
 ### **2️⃣ Setup and Start the Services**
 1. Clone the repository:
    ```bash
-   git clone <repo_url>
-   cd <repo_name>
+   git clone https://github.com/soheil-eivazy/ad-agency.git
+   cd ad-agency
    ```
 2. Build and start the services using Docker Compose:
    ```bash
